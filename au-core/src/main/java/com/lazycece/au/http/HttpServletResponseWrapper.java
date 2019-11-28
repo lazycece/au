@@ -1,0 +1,60 @@
+package com.lazycece.au.http;
+
+import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+
+/**
+ * wrapper http servlet response for multiple reading
+ *
+ * @author lazycece
+ */
+public class HttpServletResponseWrapper extends javax.servlet.http.HttpServletResponseWrapper {
+
+    private ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+    private ServletOutputStream servletOutputStream;
+    private PrintWriter printWriter;
+
+    public HttpServletResponseWrapper(HttpServletResponse response) {
+        super(response);
+    }
+
+    @Override
+    public ServletOutputStream getOutputStream() {
+        if (this.servletOutputStream == null) {
+            this.servletOutputStream = new ServletOutputStream() {
+                @Override
+                public boolean isReady() {
+                    return false;
+                }
+
+                @Override
+                public void setWriteListener(WriteListener listener) {
+                }
+
+                @Override
+                public void write(int b) {
+                    byteArrayOutputStream.write(b);
+                }
+            };
+        }
+        return this.servletOutputStream;
+    }
+
+    @Override
+    public PrintWriter getWriter() {
+        if (this.printWriter == null) {
+            this.printWriter = new PrintWriter(new OutputStreamWriter(byteArrayOutputStream, StandardCharsets.UTF_8), true);
+        }
+        return this.printWriter;
+    }
+
+
+    public byte[] getContent() {
+        return byteArrayOutputStream.toByteArray();
+    }
+}
