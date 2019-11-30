@@ -7,11 +7,13 @@ import java.util.regex.Pattern;
 
 /***
  * <p>The mapping matches URLs using the following rules:<br>
+ *
  * <ul>
  * <li>{@code ?} matches one character</li>
  * <li>{@code *} matches zero or more characters</li>
  * <li>{@code **} matches zero or more <em>directories</em> in a path</li>
- * <p>
+ * </ul>
+ *
  * <p>Following code is borrowed from org.springframework.util and simplified.
  */
 public class AntPathMatcher implements PathMatcher {
