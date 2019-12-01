@@ -19,8 +19,53 @@
 </dependency>
 ```
 
-### Filter define
-   
+### Filter
+
+定义`filter`，并且实现`AuFilter`:
+
+```java
+public class SimpleAuFilter implements AuFilter {
+
+    @Override
+    public String name() {
+        return "simple-filter";
+    }
+
+    @Override
+    public boolean preHandle() throws Exception {
+        // pre handle
+        return true;
+    }
+
+    @Override
+    public void postHandle() throws Exception {
+        // post-handle
+    }
+}
+```
+
+注入`AuFilter`，同时可设置过滤器的相关策略：
+
+```
+    AuManager auManager = AuManager.getInstance();
+    auManager.addAuFilter(SimpleAuFilter.class)
+            .excludePatterns("/a/b")
+            .includePatterns("/**")
+            .order(1);
+    auManager.setWrapper(true);
+```
+
+### Enable Au
+
+将`AuServletFilter`注入到`Servlet`中，下面以在`jetty`中使用为例：
+
+```
+        ServletContextHandler contextHandler = new ServletContextHandler();
+        contextHandler.setContextPath("/au");
+        server.setHandler(contextHandler);
+        contextHandler.addServlet(ExampleServlet.class, "/*");
+        contextHandler.addFilter(AuServletFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
+```
 
 ## License
 
