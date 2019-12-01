@@ -3,14 +3,11 @@
 [![License](https://img.shields.io/github/license/lazycece/au)](http://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/badge/release-download-orange.svg)](https://github.com/lazycece/au/releases)
 
-[中文](./README_zh_CN.md)
-
-`Au` is a filter framework. It is an extension based on servlet-filter. It provides pre-filtering and 
-post-filtering of interceptor behavior. It also provides multiple reads of requests and a wrapper for response.
+`Au`是一个`filter`框架，它是在`servlet-filter`的基础上进行扩展，提供拦截器行为式的前置过滤与后置过滤，同时亦提供了对`request`的多次读取，以及对`response`的包装。
 
 ## Quick Start
 
-Complete example can view [au-example](https://github.com/lazycece/au/tree/master/au-example)
+完整的使用案例可查看[au-example](https://github.com/lazycece/au/tree/master/au-example)
 
 ### Maven dependency
 
@@ -24,7 +21,7 @@ Complete example can view [au-example](https://github.com/lazycece/au/tree/maste
 
 ### Filter
 
-Defining `filter`，and implement the `AuFilter`.
+定义`filter`，并且实现`AuFilter`:
 
 ```java
 public class SimpleAuFilter implements AuFilter {
@@ -47,7 +44,7 @@ public class SimpleAuFilter implements AuFilter {
 }
 ```
 
-Injecting `AuFilter`，and you can also set related policies for filters.
+注入`AuFilter`，同时可设置过滤器的相关策略：
 
 ```java
     AuManager auManager = AuManager.getInstance();
@@ -60,7 +57,7 @@ Injecting `AuFilter`，and you can also set related policies for filters.
 
 ### Enable Au
 
-Injecting `AuServletFilter` into `Servlet`， as follow(`jetty`):
+将`AuServletFilter`注入到`Servlet`中，下面以在`jetty`中使用为例：
 
 ```java
     ServletContextHandler contextHandler = new ServletContextHandler();
