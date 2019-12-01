@@ -46,7 +46,7 @@ public class SimpleAuFilter implements AuFilter {
 
 注入`AuFilter`，同时可设置过滤器的相关策略：
 
-```
+```java
     AuManager auManager = AuManager.getInstance();
     auManager.addAuFilter(SimpleAuFilter.class)
             .excludePatterns("/a/b")
@@ -59,12 +59,12 @@ public class SimpleAuFilter implements AuFilter {
 
 将`AuServletFilter`注入到`Servlet`中，下面以在`jetty`中使用为例：
 
-```
-        ServletContextHandler contextHandler = new ServletContextHandler();
-        contextHandler.setContextPath("/au");
-        server.setHandler(contextHandler);
-        contextHandler.addServlet(ExampleServlet.class, "/*");
-        contextHandler.addFilter(AuServletFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
+```java
+    ServletContextHandler contextHandler = new ServletContextHandler();
+    contextHandler.setContextPath("/au");
+    server.setHandler(contextHandler);
+    contextHandler.addServlet(ExampleServlet.class, "/*");
+    contextHandler.addFilter(AuServletFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
 ```
 
 ## License
