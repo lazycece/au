@@ -8,5 +8,5 @@ import com.lazycece.au.filter.AuFilter;
  */
 public interface FilterFactory {
 
-    AuFilter newInstance(Class clazz) throws Exception;
+    AuFilter newInstance(Class<? extends AuFilter> clazz) throws Exception;
 }
