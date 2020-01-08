@@ -86,12 +86,12 @@ public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletReq
     }
 
     @Override
-    public Map getParameterMap() {
+    public Map<String, String[]> getParameterMap() {
         return getParameters();
     }
 
     @Override
-    public Enumeration getParameterNames() {
+    public Enumeration<String> getParameterNames() {
         parseRequest();
         return Collections.enumeration(parameters.keySet());
     }
