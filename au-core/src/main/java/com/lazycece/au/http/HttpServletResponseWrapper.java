@@ -4,6 +4,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -15,12 +16,19 @@ import java.nio.charset.StandardCharsets;
  */
 public class HttpServletResponseWrapper extends javax.servlet.http.HttpServletResponseWrapper {
 
+    private HttpServletResponse response;
     private ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
     private ServletOutputStream servletOutputStream;
     private PrintWriter printWriter;
 
     public HttpServletResponseWrapper(HttpServletResponse response) {
         super(response);
+        this.response = response;
+    }
+
+    @Override
+    public HttpServletResponse getResponse() {
+        return this.response;
     }
 
     @Override
@@ -53,8 +61,13 @@ public class HttpServletResponseWrapper extends javax.servlet.http.HttpServletRe
         return this.printWriter;
     }
 
-
     public byte[] getContent() {
-        return byteArrayOutputStream.toByteArray();
+        return this.byteArrayOutputStream.toByteArray();
     }
+
+    public void setContent(byte[] content) throws IOException {
+        this.byteArrayOutputStream.reset();
+        this.byteArrayOutputStream.write(content);
+    }
+
 }

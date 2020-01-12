@@ -33,7 +33,6 @@ public class AuServletFilter implements Filter {
                 chain.doFilter(RequestContext.getCurrentContext().getRequest(), RequestContext.getCurrentContext().getResponse());
             }
             this.auRunner.postHandle();
-            this.auRunner.completion();
         } finally {
             this.auRunner.unset();
         }

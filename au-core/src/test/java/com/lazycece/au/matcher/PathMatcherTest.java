@@ -17,7 +17,7 @@ public class PathMatcherTest {
     @Test
     public void testMatch() {
 
-        PathMatcher pathMatcher = new AntPathMatcher();
+        AntPathMatcher pathMatcher = new AntPathMatcher();
 
         // ‘*’ match case
         assertThat(pathMatcher.match("/*", "/au")).isTrue();
@@ -34,8 +34,7 @@ public class PathMatcherTest {
 
         // match case: case-sensitive fashion
         assertThat(pathMatcher.match("/au", "/Au")).isFalse();
-        AntPathMatcher antPathMatcher = (AntPathMatcher) pathMatcher;
-        antPathMatcher.setCaseSensitive(false);
+        pathMatcher.setCaseSensitive(false);
         assertThat(pathMatcher.match("/au", "/Au")).isTrue();
     }
 }

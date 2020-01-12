@@ -58,7 +58,7 @@ public class RequestFilter implements AuFilter {
             if (body != null && body.length > 0) {
                 wrapperBody += new String(body, StandardCharsets.UTF_8);
             }
-            context.setResponseBody(wrapperBody);
+            responseWrapper.setContent(wrapperBody.getBytes(StandardCharsets.UTF_8));
         } else {
             log.warn("Au is not wrapped, you can set it up by <code>AuManage.setWrapper(true)</code>");
         }

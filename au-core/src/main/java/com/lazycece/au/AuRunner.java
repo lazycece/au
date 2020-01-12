@@ -8,12 +8,13 @@ import com.lazycece.au.http.HttpServletResponseWrapper;
 import com.lazycece.au.log.AuLogger;
 import com.lazycece.au.log.AuLoggerFactory;
 import com.lazycece.au.matcher.PathMatcher;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,18 +49,18 @@ public class AuRunner {
             context.setRequest(request);
             context.setResponse(response);
         }
-        context.setOriginResponse(response);
-
         String path = request.getRequestURI();
         log.debug("request uri is {}", path);
         String contextPath = request.getContextPath();
         if (StringUtils.isNotBlank(contextPath)) {
             path = path.replace(contextPath, StringUtils.EMPTY);
         }
-
+        log.debug("Init au filter");
         List<RunnableFilter> matchesFilters = new ArrayList<>();
         for (RunnableFilter filter : this.runnableFilters) {
-            if (filter.matches(path, this.pathMatcher)) {
+            boolean match = filter.matches(path, this.pathMatcher);
+            log.debug("{} match {}", filter.name(), match);
+            if (match) {
                 matchesFilters.add(filter);
             }
         }
@@ -97,34 +98,21 @@ public class AuRunner {
         }
     }
 
-    public void completion() {
+    public void unset() {
         RequestContext context = RequestContext.getCurrentContext();
-        HttpServletResponse response = context.getOriginResponse();
-        if (response == null) {
-            throw new AuException("original response not exist.");
-        }
-        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        String responseBody = context.getResponseBody();
-        try {
-            if (StringUtils.isNotBlank(responseBody)) {
-                response.getWriter().println(responseBody);
-                return;
-            }
-            if (!this.wrapper) {
-                return;
-            }
+        if(this.wrapper){
             HttpServletResponse currentResponse = context.getResponse();
             if (currentResponse instanceof HttpServletResponseWrapper) {
                 HttpServletResponseWrapper responseWrapper = (HttpServletResponseWrapper) currentResponse;
-                response.getWriter().println(new String(responseWrapper.getContent(), StandardCharsets.UTF_8));
+                ByteArrayInputStream bais = new ByteArrayInputStream(responseWrapper.getContent());
+                try {
+                    IOUtils.copy(bais,responseWrapper.getResponse().getOutputStream());
+                } catch (IOException e) {
+                    throw new AuException(e);
+                }
             }
-        } catch (IOException e) {
-            throw new AuException(e);
         }
-    }
-
-    public void unset() {
         RUNNER_CONTEXT.remove();
-        RequestContext.getCurrentContext().unset();
+        context.unset();
     }
 }

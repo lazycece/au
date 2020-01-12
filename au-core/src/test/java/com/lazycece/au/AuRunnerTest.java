@@ -68,7 +68,6 @@ public class AuRunnerTest {
             boolean permit = auRunner.preHandle();
             assertThat(permit).isFalse();
             auRunner.postHandle();
-            auRunner.completion();
         } finally {
             auRunner.unset();
         }

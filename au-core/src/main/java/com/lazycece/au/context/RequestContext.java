@@ -58,14 +58,6 @@ public class RequestContext extends ConcurrentHashMap<String, Object> {
         put(ContextKey.RESPONSE, response);
     }
 
-    public HttpServletResponse getOriginResponse() {
-        return (HttpServletResponse) get(ContextKey.ORIGIN_RESPONSE);
-    }
-
-    public void setOriginResponse(HttpServletResponse response) {
-        put(ContextKey.ORIGIN_RESPONSE, response);
-    }
-
     public Map<String, List<String>> getRequestQueryParams() {
         return (Map<String, List<String>>) get(ContextKey.REQUEST_QUERY_PARAMS);
     }
@@ -73,15 +65,6 @@ public class RequestContext extends ConcurrentHashMap<String, Object> {
     public void setRequestQueryParams(Map<String, List<String>> requestQueryParams) {
         put(ContextKey.REQUEST_QUERY_PARAMS, requestQueryParams);
     }
-
-    public String getResponseBody() {
-        return (String) get(ContextKey.RESPONSE_BODY);
-    }
-
-    public void setResponseBody(String body) {
-        put(ContextKey.RESPONSE_BODY, body);
-    }
-
 
     public void unset() {
         THREAD_LOCAL.remove();
@@ -109,8 +92,6 @@ public class RequestContext extends ConcurrentHashMap<String, Object> {
     private static class ContextKey {
         static final String REQUEST = "request";
         static final String RESPONSE = "response";
-        static final String RESPONSE_BODY = "responseBody";
         static final String REQUEST_QUERY_PARAMS = "requestQueryParams";
-        static final String ORIGIN_RESPONSE = "originResponse";
     }
 }
