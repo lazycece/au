@@ -119,7 +119,7 @@ public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletReq
                 paramsMap.putAll(queryParams);
             }
 
-            if (this.request.getContentLength() > 0) {
+            if (shouldBufferBody()) {
                 log.debug("parse body content");
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 try {
@@ -161,5 +161,17 @@ public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletReq
         } catch (IOException e) {
             throw new IllegalStateException("parse request error: {}", e);
         }
+    }
+
+    private boolean shouldBufferBody() {
+        if (this.request.getContentLength() > 0) {
+            return true;
+        } else if (this.request.getContentLength() == -1) {
+            final String transferEncoding = this.request.getHeader("transfer-encoding");
+            if (transferEncoding != null && transferEncoding.equals("chunked")) {
+                return true;
+            }
+        }
+        return false;
     }
 }
