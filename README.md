@@ -1,6 +1,6 @@
 # Au
 [![Maven Central](https://img.shields.io/maven-central/v/com.lazycece.au/au-core)](https://search.maven.org/search?q=au-core)
-[![License](https://img.shields.io/github/license/lazycece/au)](http://opensource.org/licenses/MIT)
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![GitHub release](https://img.shields.io/badge/release-download-orange.svg)](https://github.com/lazycece/au/releases)
 
 [中文](./README_zh_CN.md)
