@@ -1,6 +1,6 @@
 # Au
 [![Maven Central](https://img.shields.io/maven-central/v/com.lazycece.au/au-core)](https://search.maven.org/search?q=au-core)
-[![License](https://img.shields.io/badge/license-Apache--2.0-blue)](https://www.apache.org/licenses/LICENSE-2.0.html)
+[![License](https://img.shields.io/badge/license-Apache--2.0-green)](https://www.apache.org/licenses/LICENSE-2.0.html)
 [![GitHub release](https://img.shields.io/badge/release-download-orange.svg)](https://github.com/lazycece/au/releases)
 
 `Au`是一个`filter`框架，它是在`servlet-filter`的基础上进行扩展，提供拦截器行为式的前置过滤与后置过滤，同时亦提供了对`request`的多次读取，以及对`response`的包装。
