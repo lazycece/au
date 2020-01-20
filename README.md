@@ -18,7 +18,7 @@ Complete example can view [au-example](https://github.com/lazycece/au/tree/maste
 <dependency>
   <groupId>com.lazycece.au</groupId>
   <artifactId>au-core</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
