@@ -2,8 +2,7 @@ package com.lazycece.au.filter;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -20,7 +19,7 @@ public class FilterRegistry {
         if (StringUtils.isBlank(name)) {
             name = auFilter.getClass().getName();
         }
-        this.registrations.put(name, filterRegistration);
+        this.registrations.putIfAbsent(name, filterRegistration);
         return filterRegistration;
     }
 
@@ -32,7 +31,7 @@ public class FilterRegistry {
         return this.registrations.get(name);
     }
 
-    public List<FilterRegistration> getRegistrations() {
-        return new ArrayList<>(this.registrations.values());
+    public Collection<FilterRegistration> getRegistrations() {
+        return this.registrations.values();
     }
 }
