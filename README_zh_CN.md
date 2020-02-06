@@ -15,7 +15,7 @@
 <dependency>
   <groupId>com.lazycece.au</groupId>
   <artifactId>au-core</artifactId>
-  <version>1.0.1</version>
+  <version>${au.core.version}</version>
 </dependency>
 ```
 
