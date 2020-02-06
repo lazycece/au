@@ -55,9 +55,9 @@ public class AuRunnerTest {
         auManager.addAuFilter(lastFilter).includePatterns("/**").order(2);
 
         when(request.getRequestURI()).thenReturn("/au/runner");
-        when(response.getWriter()).thenReturn(new PrintWriter(
-                new OutputStreamWriter(new ByteArrayOutputStream(), StandardCharsets.UTF_8),
-                true));
+//        when(response.getWriter()).thenReturn(new PrintWriter(
+//                new OutputStreamWriter(new ByteArrayOutputStream(), StandardCharsets.UTF_8),
+//                true));
     }
 
     @Test
