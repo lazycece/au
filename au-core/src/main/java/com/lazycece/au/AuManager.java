@@ -20,6 +20,7 @@ public class AuManager {
     private static final AuManager INSTANCE = new AuManager();
     private final FilterRegistry filterRegistry = new FilterRegistry();
     private final FilterFactory filterFactory = new DefaultFilterFactory();
+    private List<RunnableFilter> runnableFiltersCache = null;
     /**
      * Global matcher for path. if it not be set specially here or in ${@link FilterRegistration#pathMatcher},
      * default is ${@link com.lazycece.au.matcher.AntPathMatcher} at runtime(${@link RunnableFilter#pathMatcher).
@@ -45,25 +46,20 @@ public class AuManager {
         return this.addAuFilter(auFilter);
     }
 
-    public RunnableFilter getRunnableFilter(String name) {
-        FilterRegistration filterRegistration = this.filterRegistry.getRegistration(name);
-        return filterRegistration == null ? null : filterRegistration.getRunnableFilter();
+    public void clearFilterCache() {
+        this.runnableFiltersCache = null;
     }
 
-    public List<RunnableFilter> getRunnableFilters() {
+    public synchronized List<RunnableFilter> getRunnableFilters() {
+        if (this.runnableFiltersCache != null) {
+            return this.runnableFiltersCache;
+        }
         List<FilterRegistration> registrationList = new ArrayList<>(this.filterRegistry.getRegistrations());
         registrationList.sort(Comparator.comparingInt(FilterRegistration::getOrder));
         List<RunnableFilter> filterList = new ArrayList<>();
         registrationList.forEach(filterRegistration -> filterList.add(filterRegistration.getRunnableFilter()));
+        this.runnableFiltersCache = filterList;
         return filterList;
-    }
-
-    public FilterRegistry getFilterRegistry() {
-        return this.filterRegistry;
-    }
-
-    public FilterFactory getFilterFactory() {
-        return this.filterFactory;
     }
 
     public PathMatcher getPathMatcher() {

@@ -26,17 +26,13 @@ public class AuRunner {
 
     private final AuLogger log = AuLoggerFactory.getLogger(this.getClass());
     private static final ThreadLocal<List<RunnableFilter>> RUNNER_CONTEXT = ThreadLocal.withInitial(ArrayList::new);
-    private final List<RunnableFilter> runnableFilters;
     private final PathMatcher pathMatcher;
     private final boolean wrapper;
-
 
     public AuRunner() {
         AuManager auManager = AuManager.getInstance();
         this.wrapper = auManager.isWrapper();
         this.pathMatcher = auManager.getPathMatcher();
-        this.runnableFilters = auManager.getRunnableFilters();
-        this.runnableFilters.forEach(runnableFilter -> log.info("load Au filter -> {}", runnableFilter.name()));
     }
 
     public void init(HttpServletRequest request, HttpServletResponse response) {
@@ -57,7 +53,7 @@ public class AuRunner {
         }
         log.debug("Init au filter");
         List<RunnableFilter> matchesFilters = new ArrayList<>();
-        for (RunnableFilter filter : this.runnableFilters) {
+        for (RunnableFilter filter : AuManager.getInstance().getRunnableFilters()) {
             boolean match = filter.matches(path, this.pathMatcher);
             log.debug("{} match {}", filter.name(), match);
             if (match) {
@@ -100,13 +96,13 @@ public class AuRunner {
 
     public void unset() {
         RequestContext context = RequestContext.getCurrentContext();
-        if(this.wrapper){
+        if (this.wrapper) {
             HttpServletResponse currentResponse = context.getResponse();
             if (currentResponse instanceof HttpServletResponseWrapper) {
                 HttpServletResponseWrapper responseWrapper = (HttpServletResponseWrapper) currentResponse;
                 ByteArrayInputStream bais = new ByteArrayInputStream(responseWrapper.getContent());
                 try {
-                    IOUtils.copy(bais,responseWrapper.getResponse().getOutputStream());
+                    IOUtils.copy(bais, responseWrapper.getResponse().getOutputStream());
                 } catch (IOException e) {
                     throw new AuException(e);
                 }
