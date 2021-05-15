@@ -13,7 +13,7 @@
 
     <properties>
         <slf4j.version>1.7.29</slf4j.version>
-        <common.io.version>2.6</common.io.version>
+        <common.io.version>2.7</common.io.version>
         <common.lang3.version>3.9</common.lang3.version>
     </properties>
 
