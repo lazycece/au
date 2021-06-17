@@ -40,7 +40,6 @@ public class HttpServletRequestWrapperTest {
 
     @Test
     public void testGet() {
-        when(request.getMethod()).thenReturn("GET");
         when(request.getQueryString()).thenReturn("username=lazycece&password=000000");
 
         HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper(request);
