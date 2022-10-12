@@ -6,6 +6,7 @@
 `Au`是一个`filter`框架，它是在`servlet-filter`的基础上进行扩展，提供拦截器行为式的前置过滤与后置过滤，同时亦提供了对`request`的多次读取，以及对`response`的包装。
 
 `Au`框架的架构如下：
+
 ![architecture_diagram](/doc/image/architecture_diagram.jpg)
 
 ## Quick Start
