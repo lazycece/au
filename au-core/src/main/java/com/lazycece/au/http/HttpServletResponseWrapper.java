@@ -1,8 +1,8 @@
 package com.lazycece.au.http;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.WriteListener;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @author lazycece
  */
-public class HttpServletResponseWrapper extends javax.servlet.http.HttpServletResponseWrapper {
+public class HttpServletResponseWrapper extends jakarta.servlet.http.HttpServletResponseWrapper {
 
     private HttpServletResponse response;
     private ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

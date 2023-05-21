@@ -32,3 +32,5 @@ build/
 
 ### custom ###
 logs/
+.flattened-pom.xml
+tomcat

@@ -5,8 +5,8 @@ import com.lazycece.au.log.AuLoggerFactory;
 import com.lazycece.au.utils.RequestUtils;
 import org.apache.commons.io.IOUtils;
 
-import javax.servlet.ServletInputStream;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.SocketTimeoutException;
 import java.util.*;
@@ -18,7 +18,7 @@ import java.util.*;
  * @date 2019/11/11
  */
 @SuppressWarnings("unchecked")
-public class HttpServletRequestWrapper extends javax.servlet.http.HttpServletRequestWrapper {
+public class HttpServletRequestWrapper extends jakarta.servlet.http.HttpServletRequestWrapper {
 
     private final AuLogger log = AuLoggerFactory.getLogger(this.getClass());
     private HttpServletRequest request;

@@ -5,16 +5,16 @@
     <parent>
         <groupId>com.lazycece.au</groupId>
         <artifactId>au-parent</artifactId>
-        <version>1.0.3</version>
+        <version>${revision}</version>
     </parent>
     <artifactId>au-core</artifactId>
     <name>${project.artifactId}</name>
     <description>Au core</description>
 
     <properties>
-        <slf4j.version>1.7.29</slf4j.version>
-        <common.io.version>2.7</common.io.version>
-        <common.lang3.version>3.9</common.lang3.version>
+        <slf4j.version>2.0.5</slf4j.version>
+        <common.io.version>2.11.0</common.io.version>
+        <common.lang3.version>3.12.0</common.lang3.version>
     </properties>
 
     <dependencies>
@@ -24,9 +24,9 @@
             <version>${slf4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>4.0.1</version>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
