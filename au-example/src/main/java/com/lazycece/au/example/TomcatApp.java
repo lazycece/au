@@ -7,42 +7,43 @@ import com.lazycece.au.example.filter.SimpleAuFilter;
 import com.lazycece.au.example.servlet.ExampleServlet;
 import com.lazycece.au.log.AuLogger;
 import com.lazycece.au.log.AuLoggerFactory;
+import org.apache.catalina.Context;
+import org.apache.catalina.startup.Tomcat;
 import org.apache.log4j.PropertyConfigurator;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.apache.tomcat.util.descriptor.web.FilterDef;
+import org.apache.tomcat.util.descriptor.web.FilterMap;
 
-import javax.servlet.DispatcherType;
-import java.util.EnumSet;
+import java.io.File;
 
 /**
  * @author lazycece
  * @date 2019/11/15
  */
-public class App {
+public class TomcatApp {
 
-    private static final AuLogger log = AuLoggerFactory.getLogger(App.class);
+    private static final AuLogger log = AuLoggerFactory.getLogger(TomcatApp.class);
 
     public static void main(String[] args) throws Exception {
+
         int port = 8080;
         if (args.length > 0) {
             port = Integer.parseInt(args[0]);
         }
         PropertyConfigurator.configure(ClassLoader.getSystemResource("log4j.properties"));
-        Server server = createServer(port);
+        Tomcat server = createServer(port);
         server.start();
         log.info("server start on {}", port);
-        server.join();
+        server.getServer().await();
     }
 
-    private static Server createServer(int port) {
+    private static Tomcat createServer(int port) {
         log.info("init server...");
-        Server server = new Server(port);
+        Tomcat tomcat = new Tomcat();
+        tomcat.setPort(port);
 
-        ServletContextHandler contextHandler = new ServletContextHandler();
-        contextHandler.setContextPath("/au");
-        server.setHandler(contextHandler);
-
-        contextHandler.addServlet(ExampleServlet.class, "/*");
+        Context ctx = tomcat.addContext("/au", new File(".").getAbsolutePath());
+        Tomcat.addServlet(ctx, ExampleServlet.class.getSimpleName(), new ExampleServlet())
+                .addMapping("/*");
 
         // For Au
         AuManager auManager = AuManager.getInstance();
@@ -54,9 +55,18 @@ public class App {
                 .excludePatterns("/a/b")
                 .includePatterns("/**");
         auManager.setWrapper(true);
-        contextHandler.addFilter(AuServletFilter.class, "/*", EnumSet.of(DispatcherType.REQUEST));
 
-        return server;
+        FilterDef filterDef = new FilterDef();
+        filterDef.setFilterName(AuServletFilter.class.getSimpleName());
+        filterDef.setFilter(new AuServletFilter());
+        ctx.addFilterDef(filterDef);
+
+        FilterMap filterMap = new FilterMap();
+        filterMap.setFilterName(filterDef.getFilterName());
+        filterMap.addURLPattern("/*");
+        ctx.addFilterMap(filterMap);
+
+        return tomcat;
     }
 
 }
