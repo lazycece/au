@@ -4,8 +4,8 @@ import com.lazycece.au.log.AuLogger;
 import com.lazycece.au.log.AuLoggerFactory;
 import com.lazycece.au.utils.DeepCopyUtils;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.NotSerializableException;
 import java.util.List;
 import java.util.Map;
