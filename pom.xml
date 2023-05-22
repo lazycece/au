@@ -37,17 +37,17 @@
 
     <properties>
         <!-- Project revision -->
-        <revision>2.0.0</revision>
+        <revision>3.0.0-SNAPSHOT</revision>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- Maven properties -->
         <maven.test.skip>true</maven.test.skip>
-        <maven.deploy.skip>true</maven.deploy.skip>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <maven.deploy.skip>false</maven.deploy.skip>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
         <!-- Compiler settings properties -->
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <!-- Maven plugin -->
         <maven.compiler.plugin.version>3.6.2</maven.compiler.plugin.version>
         <maven.surefire.plugin.version>2.22.1</maven.surefire.plugin.version>
@@ -91,12 +91,12 @@
 
     <profiles>
         <profile>
-            <id>jdk1.8</id>
+            <id>jdk17</id>
             <activation>
-                <jdk>[1.8,)</jdk>
+                <jdk>[17,)</jdk>
                 <activeByDefault>true</activeByDefault>
             </activation>
-            <!-- Disable doclint under JDK 8 -->
+            <!-- Disable doclint under JDK 17 -->
             <reporting>
                 <plugins>
                     <plugin>
