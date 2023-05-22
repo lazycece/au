@@ -14,6 +14,11 @@ The architecture of Au as follows:
 
 ![architecture_diagram](/doc/image/architecture_diagram.jpg)
 
+## Environment
+
+- java 1.8+
+- jakarta.servlet-api 5.0.0
+
 ## Quick Start
 
 Complete example can view [au-example](https://github.com/lazycece/au/tree/master/au-example)

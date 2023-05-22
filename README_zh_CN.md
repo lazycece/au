@@ -11,6 +11,11 @@
 
 ![architecture_diagram](/doc/image/architecture_diagram.jpg)
 
+## Environment
+
+- java 1.8+
+- jakarta.servlet-api 5.0.0
+
 ## Quick Start
 
 完整的使用案例可查看[au-example](https://github.com/lazycece/au/tree/master/au-example)
