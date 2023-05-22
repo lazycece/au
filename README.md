@@ -8,6 +8,8 @@
 Au is a filter framework. It is an extension based on servlet-filter. It provides pre-filtering and 
 post-filtering of interceptor behavior. It also provides multiple reads of requests and a wrapper for response.
 
+## Architecture
+
 The architecture of Au as follows:
 
 ![architecture_diagram](/doc/image/architecture_diagram.jpg)
