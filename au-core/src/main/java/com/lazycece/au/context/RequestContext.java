@@ -24,7 +24,7 @@ public class RequestContext extends ConcurrentHashMap<String, Object> {
     private static final ThreadLocal<? extends RequestContext> THREAD_LOCAL =
             ThreadLocal.withInitial(() -> {
                 try {
-                    return contextClass.newInstance();
+                    return contextClass.getDeclaredConstructor().newInstance();
                 } catch (Throwable e) {
                     throw new RuntimeException(e);
                 }
