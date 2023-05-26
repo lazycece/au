@@ -20,9 +20,9 @@ Au environment dependency as follow:
 
 |Au|Java|servlet-api|
 |---|---|---|
-|1.x|1.8+|javax.servlet-api:>4.0.0|
-|2.x|1.8+|jakarta.servlet-api:>5.0.0|
-|3.x|17+|jakarta.servlet-api:>5.0.0|
+|1.x|1.8+|javax.servlet-api:>=4.0.0|
+|2.x|1.8+|jakarta.servlet-api:>=5.0.0|
+|3.x|17+|jakarta.servlet-api:>=5.0.0|
 
 
 ## Quick Start
